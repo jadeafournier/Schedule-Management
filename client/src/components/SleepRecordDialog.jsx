@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createSleepRecord } from '../api/sleepRecords';
 import { formatDuration } from '../utils/formatDuration';
+import DialogCloseButton from './DialogCloseButton';
 
 function calculateDurationSeconds(startTime, endTime) {
   if (!startTime || !endTime) {
@@ -106,9 +107,7 @@ export default function SleepRecordDialog({ open, onClose, onSaved }) {
       onClose={handleClose}
     >
       <div className="app-dialog-panel panel app-dialog-panel-with-close sleep-record-dialog-panel">
-        <button type="button" className="dialog-close-button" onClick={handleClose} disabled={saving}>
-          Close
-        </button>
+        <DialogCloseButton onClick={handleClose} disabled={saving} />
 
         <div className="panel-header">
           <h2>Add Sleep Record</h2>

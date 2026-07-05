@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import DialogCloseButton from './DialogCloseButton';
 import SleepAnalysisChart from './SleepAnalysisChart';
 
 export default function WeeklyAnalysisDialog({ open, refreshKey, onClose }) {
@@ -36,9 +37,7 @@ export default function WeeklyAnalysisDialog({ open, refreshKey, onClose }) {
       onClose={handleClose}
     >
       <div className="app-dialog-panel panel app-dialog-panel-with-close weekly-analysis-dialog-panel">
-        <button type="button" className="dialog-close-button" onClick={handleClose}>
-          Close
-        </button>
+        <DialogCloseButton onClick={handleClose} />
         <SleepAnalysisChart refreshKey={refreshKey} embedded dialogOpen={open} />
       </div>
     </dialog>

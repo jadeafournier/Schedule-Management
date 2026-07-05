@@ -362,27 +362,18 @@ body {
   top: 1rem;
   right: 1rem;
   z-index: 1;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
-  background: rgba(15, 23, 42, 0.55);
+  color: #cbd5e1;
+}
+
+.dialog-close-button:hover:not(:disabled) {
   color: #e2e8f0;
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  background: rgba(148, 163, 184, 0.12);
+  transform: none;
 }
 
 .dialog-close-button:disabled {
   opacity: 0.55;
   cursor: not-allowed;
-  transform: none;
-}
-
-.dialog-close-button:hover:not(:disabled) {
-  transform: translateY(-1px);
-  border-color: rgba(165, 180, 252, 0.65);
 }
 
 .chart-panel-header-embedded {
