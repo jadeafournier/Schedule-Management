@@ -5,7 +5,19 @@ import WeeklyAnalysisDialog from './WeeklyAnalysisDialog';
 
 export default function SleepRecordForm({ refreshKey, onRecordSaved }) {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isWeeklyDialogOpen, setIsWeeklyDialogOpen] = useState(false);
+  const [editingRecord, setEditingRecord] = useState(null);
+
+  function handleEditRecord(record) {
+    setEditingRecord(record);
+    setIsEditDialogOpen(true);
+  }
+
+  function handleCloseEditDialog() {
+    setIsEditDialogOpen(false);
+    setEditingRecord(null);
+  }
 
   return (
     <section className="panel form-panel">
@@ -22,11 +34,22 @@ export default function SleepRecordForm({ refreshKey, onRecordSaved }) {
         </button>
       </div>
 
-      <SleepRecordTable refreshKey={refreshKey} onRecordDeleted={onRecordSaved} />
+      <SleepRecordTable
+        refreshKey={refreshKey}
+        onRecordClick={handleEditRecord}
+        onRecordDeleted={onRecordSaved}
+      />
 
       <SleepRecordDialog
         open={isAddDialogOpen}
         onClose={() => setIsAddDialogOpen(false)}
+        onSaved={onRecordSaved}
+      />
+
+      <SleepRecordDialog
+        open={isEditDialogOpen}
+        record={editingRecord}
+        onClose={handleCloseEditDialog}
         onSaved={onRecordSaved}
       />
 

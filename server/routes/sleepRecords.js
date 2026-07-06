@@ -27,6 +27,31 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  const id = Number(req.params.id);
+  const { startTime, endTime, durationSeconds } = req.body;
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ message: 'Invalid record id' });
+  }
+
+  if (!startTime || !endTime || !durationSeconds) {
+    return res.status(400).json({ message: 'startTime, endTime, and durationSeconds are required' });
+  }
+
+  try {
+    const record = await SleepRecord.updateById(id, { startTime, endTime, durationSeconds });
+
+    if (!record) {
+      return res.status(404).json({ message: 'Sleep record not found' });
+    }
+
+    res.json(record);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update sleep record', error: error.message });
+  }
+});
+
 router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id);
 

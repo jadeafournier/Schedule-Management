@@ -22,6 +22,20 @@ export async function createSleepRecord({ startTime, endTime, durationSeconds })
   return response.json();
 }
 
+export async function updateSleepRecord(id, { startTime, endTime, durationSeconds }) {
+  const response = await fetch(`${API_BASE}/sleep-records/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ startTime, endTime, durationSeconds }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update sleep record');
+  }
+
+  return response.json();
+}
+
 export async function deleteSleepRecord(id) {
   const response = await fetch(`${API_BASE}/sleep-records/${id}`, {
     method: 'DELETE',

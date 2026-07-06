@@ -12,7 +12,7 @@ function formatDateTime(isoString) {
   });
 }
 
-export default function SleepRecordTable({ refreshKey, onRecordDeleted }) {
+export default function SleepRecordTable({ refreshKey, onRecordClick, onRecordDeleted }) {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -83,7 +83,19 @@ export default function SleepRecordTable({ refreshKey, onRecordDeleted }) {
           </thead>
           <tbody>
             {records.map((record) => (
-              <tr key={record.id}>
+              <tr
+                key={record.id}
+                className="records-table-row"
+                onClick={() => onRecordClick?.(record)}
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onRecordClick?.(record);
+                  }
+                }}
+                aria-label={`Edit sleep record from ${formatDateTime(record.startTime)}`}
+              >
                 <td>{formatDateTime(record.startTime)}</td>
                 <td>{formatDateTime(record.endTime)}</td>
                 <td>{formatDuration(record.durationSeconds)}</td>
@@ -91,7 +103,10 @@ export default function SleepRecordTable({ refreshKey, onRecordDeleted }) {
                   <button
                     type="button"
                     className="icon-button delete-button"
-                    onClick={() => handleDelete(record.id)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleDelete(record.id);
+                    }}
                     disabled={deletingId === record.id}
                     aria-label={deletingId === record.id ? 'Deleting record' : 'Delete record'}
                     title={deletingId === record.id ? 'Deleting...' : 'Delete'}

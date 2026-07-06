@@ -469,8 +469,18 @@ body {
   letter-spacing: 0.04em;
 }
 
-.records-table tbody tr:hover {
+.records-table tbody tr.records-table-row {
+  cursor: pointer;
+}
+
+.records-table tbody tr.records-table-row:hover,
+.records-table tbody tr.records-table-row:focus-visible {
   background: rgba(99, 102, 241, 0.08);
+}
+
+.records-table tbody tr.records-table-row:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.45);
+  outline-offset: -2px;
 }
 
 .records-table td:nth-child(3) {

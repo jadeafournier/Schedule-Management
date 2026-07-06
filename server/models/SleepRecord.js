@@ -45,8 +45,31 @@ async function removeById(id) {
   return result.affectedRows > 0;
 }
 
+async function updateById(id, { startTime, endTime, durationSeconds }) {
+  const [result] = await pool.query(
+    `UPDATE sleep_records
+     SET start_time = ?, end_time = ?, duration_seconds = ?
+     WHERE id = ?`,
+    [new Date(startTime), new Date(endTime), durationSeconds, id]
+  );
+
+  if (result.affectedRows === 0) {
+    return null;
+  }
+
+  const [rows] = await pool.query(
+    `SELECT id, start_time, end_time, duration_seconds, created_at, updated_at
+     FROM sleep_records
+     WHERE id = ?`,
+    [id]
+  );
+
+  return mapRow(rows[0]);
+}
+
 module.exports = {
   findRecent,
   create,
+  updateById,
   removeById,
 };
