@@ -5,7 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start:prod": "node launcher.js",
     "dev": "node --watch index.js"
+  },
+  "pkg": {
+    "scripts": [
+      "index.js",
+      "app.js",
+      "db.js",
+      "launcher.js",
+      "models/**/*.js",
+      "routes/**/*.js"
+    ],
+    "assets": [
+      "node_modules/mysql2/**/*"
+    ],
+    "targets": [
+      "node18-win-x64"
+    ]
   },
   "keywords": [],
   "author": "",

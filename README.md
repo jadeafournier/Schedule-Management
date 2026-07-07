@@ -56,6 +56,31 @@ npm run dev
 - Frontend: http://localhost:5173
 - API: http://localhost:5000
 
+## Build Windows executable
+
+Package the app into a standalone `.exe` that serves the UI and API together:
+
+```bash
+npm run build:exe
+```
+
+Output goes to the `release/` folder:
+
+| File | Purpose |
+|------|---------|
+| `ScheduleManagement.exe` | Double-click to run the app (includes Node.js and server) |
+| `.env.example` | Copy to `.env` and set MySQL credentials |
+
+**Before running the executable:**
+
+1. Start MySQL (e.g. XAMPP).
+2. In the `release/` folder, copy `.env.example` to `.env` and edit if needed.
+3. Run `ScheduleManagement.exe` — it opens http://localhost:5000 in your browser.
+
+MySQL is still required; the executable bundles Node.js and the server, not the database.
+
+The build uses [caxa](https://github.com/leafac/caxa) to produce a self-contained `.exe` on Windows.
+
 ## Project Structure
 
 ```
